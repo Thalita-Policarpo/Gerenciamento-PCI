@@ -1,0 +1,30 @@
+app:
+  myport: ${PORT:0}
+server:
+  port: ${app.myport}
+
+spring:
+  application:
+    name: inspecao-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/inspecao-db
+  jackson:
+    default-property-inclusion: non_null
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+swagger:
+  enabled: true
+  paths: /api/v1/**

@@ -1,0 +1,62 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: extintor-service
+          uri: lb://extintor-service
+          predicates:
+            - Path=/api/extintores/**
+        - id: inspecao-service
+          uri: lb://inspecao-service
+          predicates:
+            - Path=/api/inspecoes/**
+        - id: historico-service
+          uri: lb://historico-service
+          predicates:
+            - Path=/api/historico/**
+
+        # Roteamento para o Swagger dos serviços
+        - id: extintor-service-docs
+          uri: lb://extintor-service
+          predicates:
+            - Path=/extintor-service/v3/api-docs/**
+        - id: inspecao-service-docs
+          uri: lb://inspecao-service
+          predicates:
+            - Path=/inspecao-service/v3/api-docs/**
+        - id: historico-service-docs
+          uri: lb://historico-service
+          predicates:
+            - Path=/historico-service/v3/api-docs/**
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Extintor-Service
+        url: /extintor-service/v3/api-docs
+      - name: Inspecao-Service
+        url: /inspecao-service/v3/api-docs
+      - name: Historico-Service
+        url: /historico-service/v3/api-docs
+    path: /swagger-ui.html
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.springframework: INFO
