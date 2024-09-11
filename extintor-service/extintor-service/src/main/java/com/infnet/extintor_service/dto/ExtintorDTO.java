@@ -12,6 +12,6 @@ public class ExtintorDTO {
     private String numeroSeloInmetro;
     private String cargaExtintora;
     private String capacidade;
-    private YearMonth dataVencimento;
-    private Year proximoTesteHidrostatico;
+    //private YearMonth dataVencimento;
+    //private Year proximoTesteHidrostatico;
 }

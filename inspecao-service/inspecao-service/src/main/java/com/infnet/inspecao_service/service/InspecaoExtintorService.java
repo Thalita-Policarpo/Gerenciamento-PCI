@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +14,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class InspecaoExtintorService {
+
 
     private final InspecaoExtintorRepository inspecaoExtintorRepository;
     private final RestTemplate restTemplate; // Comunicação com Extintor-service
@@ -35,7 +35,6 @@ public class InspecaoExtintorService {
     }
 
     public InspecaoExtintor saveInspecao(InspecaoExtintor inspecaoExtintor) {
-        log.info("Salvando nova inspeção para extintor com ID: {}", inspecaoExtintor.getExtintorId());
 
         // Validação: Verificar se o extintor está cadastrado no Extintor-service
         String url = "http://extintor-service/extintores/" + inspecaoExtintor.getExtintorId();
@@ -46,12 +45,15 @@ public class InspecaoExtintorService {
             throw new IllegalStateException("Extintor não cadastrado!");
         }
 
+        log.info("Salvando nova inspeção para extintor com ID: {}", inspecaoExtintor.getExtintorId());
+
         // Verificar validade da inspeção
         if (isValidInspecao(inspecaoExtintor)) {
             inspecaoExtintor.setStatus("Conforme");
         } else {
             inspecaoExtintor.setStatus("Não conforme");
         }
+
 
         return inspecaoExtintorRepository.save(inspecaoExtintor);
     }
@@ -63,10 +65,10 @@ public class InspecaoExtintorService {
                 && inspecao.isMangoteBoasCondicoes() && inspecao.isRotuloPinturaBoasCondicoes()
                 && inspecao.isSuporteBoasCondicoes() && inspecao.isLacreIntacto();
 
-        LocalDate hoje = LocalDate.now();
-        boolean validadeExtintorValida = hoje.isBefore(inspecao.getDataInspecao()); // Simulação
+        //LocalDate hoje = LocalDate.now();
+       // boolean validadeExtintorValida = hoje.isBefore(inspecao.getDataInspecao());
 
-        return camposValidos && validadeExtintorValida;
+        return camposValidos /*&& validadeExtintorValida*/;
     }
 
     public void deleteInspecao(String id) {

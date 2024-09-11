@@ -18,7 +18,7 @@ public class Extintor {
     private String numeroSeloInmetro;
     private String cargaExtintora;
     private String capacidade;
-    private YearMonth dataVencimento;
-    private Year proximoTesteHidrostatico;
+    //private YearMonth dataVencimento;
+    //private Year proximoTesteHidrostatico;
     private List<String> inspecoesId;  // Referência para as inspeções associadas
 }

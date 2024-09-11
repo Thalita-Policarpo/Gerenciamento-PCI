@@ -79,7 +79,7 @@ public class ExtintorController {
     public ResponseEntity<?> createExtintor(@RequestBody ExtintorDTO extintorDTO) {
         try {
             Extintor savedExtintor = extintorService.saveExtintorFromDTO(extintorDTO);
-            return ResponseEntity.status(201).body(savedExtintor);
+            return ResponseEntity.status(201).body("Extintor cadastrado com sucesso!" + savedExtintor);
         } catch (IllegalArgumentException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
         }

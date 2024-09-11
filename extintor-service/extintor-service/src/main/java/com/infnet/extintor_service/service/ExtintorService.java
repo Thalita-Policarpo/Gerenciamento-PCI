@@ -61,8 +61,8 @@ public class ExtintorService {
         extintor.setNumeroSeloInmetro(extintorDTO.getNumeroSeloInmetro());
         extintor.setCargaExtintora(extintorDTO.getCargaExtintora());
         extintor.setCapacidade(extintorDTO.getCapacidade());
-        extintor.setDataVencimento(extintorDTO.getDataVencimento());
-        extintor.setProximoTesteHidrostatico(extintorDTO.getProximoTesteHidrostatico());
+        //extintor.setDataVencimento(extintorDTO.getDataVencimento());
+        //extintor.setProximoTesteHidrostatico(extintorDTO.getProximoTesteHidrostatico());
 
         // Salva o extintor e obtém a instância salva
         Extintor extintorSalvo = extintorRepository.save(extintor);
