@@ -48,6 +48,11 @@ public class ExtintorService {
         return extintorRepository.findByNumeroControleInterno(numeroControleInterno);
     }
 
+    public boolean existsById(String id) {
+        log.info("Verificando existência do extintor pelo ID: {}", id);
+        return extintorRepository.existsById(id);
+    }
+
     public Extintor saveExtintorFromDTO(ExtintorDTO extintorDTO) {
         if (extintorRepository.findByNumeroControleInterno(extintorDTO.getNumeroControleInterno()).isPresent()) {
             log.info("Extintor com este número de controle interno já existe");

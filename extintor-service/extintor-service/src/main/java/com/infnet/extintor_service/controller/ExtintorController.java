@@ -70,6 +70,21 @@ public class ExtintorController {
         }
     }
 
+    @Operation(summary = "Verificar existência de extintor", description = "Verifica se um extintor está cadastrado pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Extintor encontrado"),
+            @ApiResponse(responseCode = "404", description = "Extintor não encontrado")
+    })
+    @GetMapping("/verificar/{id}")
+    public ResponseEntity<Void> verificarExtintor(@PathVariable String id) {
+        boolean existe = extintorService.existsById(id);
+        if (existe) {
+            return ResponseEntity.ok().build(); // Retorna 200 OK se o extintor existe
+        } else {
+            return ResponseEntity.notFound().build(); // Retorna 404 NOT FOUND se o extintor não existir
+        }
+    }
+
     @Operation(summary = "Cadastrar um novo extintor", description = "Cadastra um novo extintor no sistema")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Extintor cadastrado com sucesso"),
@@ -94,11 +109,9 @@ public class ExtintorController {
     public ResponseEntity<?> deleteExtintor(@PathVariable String id) {
         try {
             extintorService.deleteExtintor(id);
-            ResponseEntity.ok("Extintor deletado com sucesso");
-
+            return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 }
